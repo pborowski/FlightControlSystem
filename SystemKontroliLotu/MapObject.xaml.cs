@@ -16,17 +16,29 @@ using System.Windows.Shapes;
 namespace SystemKontroliLotu
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Logika interakcji dla klasy MapObject.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MapObject : UserControl
     {
-        public MainWindow()
+        #region Properties
+        public Point Coordinates { get; set; }
+        public string MapObjectName { get; private set; }
+        #endregion
+
+        #region Constructors
+        public MapObject()
         {
             InitializeComponent();
-            //Airport a = new Airport();
-            Aircraft a = new Aircraft();
-            CanvasMap.Children.Add(a);
-            
         }
+        public MapObject(string name, Point coordinates)
+        {
+            MapObjectName = name;
+            Coordinates = coordinates;
+        }
+        #endregion
+
+        #region Methods
+
+        #endregion
     }
 }
