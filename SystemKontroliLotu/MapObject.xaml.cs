@@ -18,7 +18,7 @@ namespace SystemKontroliLotu
     /// <summary>
     /// Logika interakcji dla klasy MapObject.xaml
     /// </summary>
-    public partial class MapObject : UserControl
+    public abstract partial class MapObject : UserControl
     {
         #region Properties
         public Point Coordinates { get; set; }
@@ -26,11 +26,12 @@ namespace SystemKontroliLotu
         #endregion
 
         #region Constructors
-        public MapObject()
+        protected MapObject()
         {
             InitializeComponent();
         }
-        public MapObject(string name, Point coordinates)
+
+        protected MapObject(string name, Point coordinates)
         {
             MapObjectName = name;
             Coordinates = coordinates;
@@ -39,6 +40,10 @@ namespace SystemKontroliLotu
 
         #region Methods
 
+        public virtual void RenderMapObject(Point p, Canvas c)
+        {
+            
+        }
         #endregion
     }
 }

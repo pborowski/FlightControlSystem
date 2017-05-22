@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
 namespace SystemKontroliLotu
@@ -27,7 +29,16 @@ namespace SystemKontroliLotu
             CanvasMapObject.Width = 50;
             CanvasMapObject.Height = 50;
             ImageMapObject.Source = bi;
-            //dodać miejsce
+        }
+        #endregion
+
+        #region Methods
+        public override void RenderMapObject(Point p, Canvas c)
+        {
+            this.Coordinates = p;
+            Canvas.SetLeft(this, this.Coordinates.X);
+            Canvas.SetTop(this, this.Coordinates.Y);
+            c.Children.Add(this);
         }
         #endregion
     }

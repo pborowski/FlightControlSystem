@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SystemKontroliLotu"
         mc:Ignorable="d"
-        Title="System Kontroli Lotu" Icon="Images/icon.ico" Height="1024" Width="1053">
+        Title="System Kontroli Lotu" Icon="Images/icon.ico" Height="800" Width="800">
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">

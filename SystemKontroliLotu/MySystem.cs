@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace SystemKontroliLotu
 {
@@ -35,6 +37,14 @@ namespace SystemKontroliLotu
             //zwracamy instancję obiektu zapisanego
             //w stacznym polu naszej klasy
             return _sys;
+        }
+
+        public void generateRandomFlights(Canvas c )
+        {
+            Airport a = new Airport();
+            a.RenderMapObject(new Point(110, 140), c);
+            Airports.Add(a);
+
         }
         #endregion
     }

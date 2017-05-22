@@ -23,10 +23,8 @@ namespace SystemKontroliLotu
         public MainWindow()
         {
             InitializeComponent();
-            //Airport a = new Airport();
-            Aircraft a = new Aircraft();
-            CanvasMap.Children.Add(a);
-            
+            MySystem.CreateSystem().generateRandomFlights(CanvasMap);
+
         }
     }
 }
