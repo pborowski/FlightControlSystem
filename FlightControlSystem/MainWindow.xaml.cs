@@ -31,6 +31,8 @@ namespace FlightControlSystem
         private void MenuItem_Start_OnClick(object sender, RoutedEventArgs e)
         {
             sys = SystemObject.CreateSystem(this.CanvasMap);
+            MenuItemAddRandom.IsEnabled = true;
+            MenuItemStart.IsEnabled = false;
         }
 
         private void MenuItem_GeneratePlane_OnClick(object sender, RoutedEventArgs e)
@@ -51,6 +53,25 @@ namespace FlightControlSystem
         private void MenuItem_GenerateGlider_OnClick(object sender, RoutedEventArgs e)
         {
             sys.GenerateRandomFlight(AircraftType.Glider);
+        }
+
+        private void MenuItem_Stop_OnClick(object sender, RoutedEventArgs e)
+        {
+            DeleteAllAircrafts(CanvasMap.Children);
+        }
+
+        private void DeleteAllAircrafts(UIElementCollection c)
+        {
+            foreach (UIElement element in c)
+            {
+                if (element is Aircraft)
+                {
+                    c.Remove(element);
+                    DeleteAllAircrafts(c);
+                    break;
+                }
+            }
+            return;
         }
     }
 }

@@ -42,6 +42,7 @@ namespace FlightControlSystem
             DoubleAnimation animX = new DoubleAnimation(dest.Coordinates.X, TimeSpan.FromSeconds(20));
             DoubleAnimation animY = new DoubleAnimation(dest.Coordinates.Y, TimeSpan.FromSeconds(20));
             
+
             animY.Completed += (s, e) =>
             {
                 foreach (Flight f in MainWindow.sys.Flights)
