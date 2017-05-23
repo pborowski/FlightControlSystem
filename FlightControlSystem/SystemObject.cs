@@ -14,6 +14,7 @@ namespace FlightControlSystem
         #region Properties
 
         private static SystemObject _sys; // singleton object is stored here
+        private static Random rnd;
         public List<Flight> Flights { get; set; }
         public List<Airport> Airports { get; set; }
         public Canvas C;
@@ -26,6 +27,7 @@ namespace FlightControlSystem
         // of this class outside
         private SystemObject(Canvas c)
         {
+            rnd = new Random();
             this.C = c;
             Flights = new List<Flight>();
             Airports = new List<Airport>();
@@ -48,7 +50,13 @@ namespace FlightControlSystem
             foreach (Airport a in Airports)
             {
                 a.RenderMapObject(c);
+                for (int i = 0; i < 1; i++) //jeden random z każdego lotniska
+                {
+                    int r = rnd.Next(Airports.Count);
+                    CreateFlight(a,Airports[r]);
+                }
             }
+            
         }
 
         // pseudo constructor - publicly visuble static method 
