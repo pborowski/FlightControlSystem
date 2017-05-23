@@ -53,10 +53,28 @@ namespace FlightControlSystem
                 for (int i = 0; i < 1; i++) //jeden random z każdego lotniska
                 {
                     int r = rnd.Next(Airports.Count);
-                    CreateFlight(a,Airports[r]);
+                    AircraftType t;
+                    switch (r % 4)
+                    {
+                        case 0:
+                            t = AircraftType.Plane;
+                            break;
+                        case 1:
+                            t = AircraftType.Balloon;
+                            break;
+                        case 2:
+                            t = AircraftType.Glider;
+                            break;
+                        case 3:
+                            t = AircraftType.Helicopter;
+                            break;
+                        default:
+                            t = AircraftType.Plane;
+                            break;
+                    }
+                    CreateFlight(a, Airports[r], t);
                 }
             }
-            
         }
 
         // pseudo constructor - publicly visuble static method 
@@ -77,9 +95,9 @@ namespace FlightControlSystem
 
         #region Methods
 
-        public void CreateFlight(Airport origin, Airport destination)
+        public void CreateFlight(Airport origin, Airport destination, AircraftType type)
         {
-            Aircraft a = new Aircraft("Tupolew", origin.Coordinates, AircraftType.Plane);
+            Aircraft a = new Aircraft("Tupolew", origin.Coordinates, type);
             Flight f = new Flight(a, origin, destination, C);
             Flights.Add(f);
 

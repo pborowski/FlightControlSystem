@@ -41,7 +41,7 @@ namespace FlightControlSystem
             MainWindow.dlg.ShowDialog();
             if(MainWindow.dlg.Selection != null)
             {
-                MainWindow.sys.CreateFlight(this, MainWindow.dlg.Selection);
+                MainWindow.sys.CreateFlight(this, MainWindow.dlg.Selection,AircraftType.Plane);
             }    
         }
 

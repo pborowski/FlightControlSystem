@@ -34,13 +34,13 @@ namespace FlightControlSystem
             DestinationAirport = dest;
             AircraftFlying.RenderMapObject(c);
 
-            double rotationAngle = Math.Atan((dest.Coordinates.Y - start.Coordinates.Y) / (dest.Coordinates.X - start.Coordinates.X)) * 100 + 90;
+            double rotationAngle = 0; //Math.Atan((dest.Coordinates.Y - start.Coordinates.Y) / (dest.Coordinates.X - start.Coordinates.X)) * 100 + 90;
 
             RotateTransform rt = new RotateTransform() { Angle = rotationAngle };
             AircraftFlying.RenderTransformOrigin = new Point(.5, .5);
             AircraftFlying.RenderTransform = rt;
-            DoubleAnimation animX = new DoubleAnimation(dest.Coordinates.X, TimeSpan.FromSeconds(10));
-            DoubleAnimation animY = new DoubleAnimation(dest.Coordinates.Y, TimeSpan.FromSeconds(10));
+            DoubleAnimation animX = new DoubleAnimation(dest.Coordinates.X, TimeSpan.FromSeconds(20));
+            DoubleAnimation animY = new DoubleAnimation(dest.Coordinates.Y, TimeSpan.FromSeconds(20));
             
             animY.Completed += (s, e) =>
             {

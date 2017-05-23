@@ -13,19 +13,37 @@ namespace FlightControlSystem
     public class Aircraft : MapObject
     {
         #region Properties
+
         public AircraftType Type { get; set; }
         public double Altitude { get; set; }
         public double Speed { get; set; }
+
         #endregion
 
         #region Constructors
-        public Aircraft(string name, Point coordinates, AircraftType t) 
+
+        public Aircraft(string name, Point coordinates, AircraftType t)
             : base(name, coordinates)
         {
             Type = t;
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
-            bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/plane.png", UriKind.Relative);
+            switch (t)
+            {
+                case AircraftType.Plane:
+                    bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/plane.png", UriKind.Relative);
+                    break;
+                case AircraftType.Balloon:
+                    bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/baloon.png", UriKind.Relative);
+                    break;
+                case AircraftType.Glider:
+                    bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/glider.png", UriKind.Relative);
+                    break;
+                case AircraftType.Helicopter:
+                    bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/helicopter.png", UriKind.Relative);
+                    break;
+            }
+            
             bi.EndInit();
             ImageMapObject.Width = 30;
             ImageMapObject.Height = 30;
