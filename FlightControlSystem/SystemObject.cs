@@ -29,8 +29,8 @@ namespace FlightControlSystem
             this.c = c;
             Flights = new List<Flight>();
             Airports = new List<Airport>();
-            Airports.Add(new Airport("Bialystok", new Point(630, 180)));
-            Airports.Add(new Airport("Warszawa", new Point(500, 250)));
+            Airports.Add(new Airport("Bialystok", new Point(450, 120)));
+            Airports.Add(new Airport("Warszawa", new Point(350, 180)));
             foreach (Airport a in Airports)
             {
                 a.RenderMapObject(c);

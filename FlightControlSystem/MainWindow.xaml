@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightControlSystem"
         mc:Ignorable="d"
-        Title="System Kontroli Lotu" Icon="Images/icon.ico" Height="800" Width="800">
+        Title="System Kontroli Lotu" Icon="Images/icon.ico" Width="600" Height="617" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -20,7 +20,7 @@
         <Grid>
             <Canvas Name="CanvasMap">
                 <Canvas.Background>
-                    <ImageBrush ImageSource="Images/map.png" />
+                    <ImageBrush ImageSource="Images/map.jpg" />
                 </Canvas.Background>
             </Canvas>
         </Grid>
