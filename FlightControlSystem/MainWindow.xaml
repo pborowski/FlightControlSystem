@@ -10,11 +10,14 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="System">
-                <MenuItem Header="_Start"/>
+                <MenuItem Header="_Start" Click="MenuItem_Start_OnClick"/>
                 <MenuItem Header="_Stop"/>
             </MenuItem>
-            <MenuItem Header="Samolot">
-                <MenuItem Header="_Dodaj samolot"/>
+            <MenuItem Header="Add Random Flight">
+                <MenuItem Header="_Plane" Click="MenuItem_GeneratePlane_OnClick"/>
+                <MenuItem Header="_Baloon" Click="MenuItem_GenerateBaloon_OnClick"/>
+                <MenuItem Header="_Helicopter" Click="MenuItem_GenerateHelicopter_OnClick"/>
+                <MenuItem Header="_Glider" Click="MenuItem_GenerateGlider_OnClick"/>
             </MenuItem>
         </Menu>
         <Grid>

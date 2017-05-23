@@ -26,7 +26,31 @@ namespace FlightControlSystem
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MenuItem_Start_OnClick(object sender, RoutedEventArgs e)
+        {
             sys = SystemObject.CreateSystem(this.CanvasMap);
+        }
+
+        private void MenuItem_GeneratePlane_OnClick(object sender, RoutedEventArgs e)
+        {
+            sys.GenerateRandomFlight(AircraftType.Plane);
+        }
+
+        private void MenuItem_GenerateBaloon_OnClick(object sender, RoutedEventArgs e)
+        {
+            sys.GenerateRandomFlight(AircraftType.Balloon);
+        }
+
+        private void MenuItem_GenerateHelicopter_OnClick(object sender, RoutedEventArgs e)
+        {
+            sys.GenerateRandomFlight(AircraftType.Helicopter);
+        }
+
+        private void MenuItem_GenerateGlider_OnClick(object sender, RoutedEventArgs e)
+        {
+            sys.GenerateRandomFlight(AircraftType.Glider);
         }
     }
 }

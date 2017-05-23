@@ -103,9 +103,9 @@ namespace FlightControlSystem
 
         }
 
-        public void GenerateRandomFlights()
+        public void GenerateRandomFlight(AircraftType t)
         {
-
+            CreateFlight(Airports[rnd.Next(Airports.Count)], Airports[rnd.Next(Airports.Count)], t);
         }
 
         public void ChangeFlightDestination()
