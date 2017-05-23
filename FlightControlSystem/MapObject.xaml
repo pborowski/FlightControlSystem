@@ -5,9 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FlightControlSystem"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
-        <Grid Width="100" Height="100">
-            <Image Name="ImageMapObject" Width="100" Height="100"></Image>
+             d:DesignHeight="100" d:DesignWidth="100" MouseLeftButtonDown="UserControl_MouseLeftButtonDown" >
+        <Grid Name="GridMapObject" Width="100" Height="100">
+        <Label Name="NameLabel" Foreground="DarkRed" Margin="20,70,0,0" Visibility="Collapsed">fsdafdsaf</Label>
+        <Image MouseEnter="MapObject_OnMouseEnter" MouseLeave="ImageMapObject_OnMouseLeave" Name="ImageMapObject" Width="100" Height="100"></Image>
         </Grid>
 </UserControl>
 

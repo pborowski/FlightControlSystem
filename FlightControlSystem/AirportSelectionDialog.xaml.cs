@@ -19,7 +19,7 @@ namespace FlightControlSystem
     /// </summary>
     public partial class AirportSelectionDialog : Window
     {
-        public Airport selection;
+        public Airport Selection;
 
         public AirportSelectionDialog()
         {
@@ -38,7 +38,7 @@ namespace FlightControlSystem
                 {
                     if (a.Name == AirportBox.SelectedItem.ToString())
                     {
-                        selection = a;
+                        Selection = a;
                     }
                 }
                 this.Close();
@@ -51,7 +51,7 @@ namespace FlightControlSystem
 
         private void Cancel_Button_Click(object sender, RoutedEventArgs e)
         {
-            selection = null;
+            Selection = null;
             this.Close();
         }
     }

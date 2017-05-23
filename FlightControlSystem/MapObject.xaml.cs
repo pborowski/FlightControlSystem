@@ -23,7 +23,7 @@ namespace FlightControlSystem
         #region Properties
 
         public Point Coordinates { get; set; }
-        public string MapObjectName { get; private set; }
+        public string MapObjectName { get; protected set; }
 
         #endregion
 
@@ -51,5 +51,9 @@ namespace FlightControlSystem
         #endregion
 
         public abstract void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e);
+
+        public abstract void MapObject_OnMouseEnter(object sender, MouseEventArgs e);
+
+        public abstract void ImageMapObject_OnMouseLeave(object sender, MouseEventArgs e);
     }
 }

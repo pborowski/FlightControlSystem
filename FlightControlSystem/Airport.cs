@@ -17,6 +17,7 @@ namespace FlightControlSystem
         public Airport(string name, Point coordinates) 
             : base(name, coordinates)
         {
+            MapObjectName = name; 
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
             bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/airport.png", UriKind.Relative);
@@ -38,12 +39,22 @@ namespace FlightControlSystem
         {
             MainWindow.dlg = new AirportSelectionDialog();
             MainWindow.dlg.ShowDialog();
-            if(MainWindow.dlg.selection != null)
+            if(MainWindow.dlg.Selection != null)
             {
-                MainWindow.sys.createFlight(this, MainWindow.dlg.selection);
+                MainWindow.sys.CreateFlight(this, MainWindow.dlg.Selection);
             }    
         }
 
+        public override void MapObject_OnMouseEnter(object sender, MouseEventArgs e)
+        {
+            if (MapObjectName != null) NameLabel.Content = MapObjectName;
+            NameLabel.Visibility = Visibility.Visible;
+        }
+
+        public override void ImageMapObject_OnMouseLeave(object sender, MouseEventArgs e)
+        {
+            NameLabel.Visibility = Visibility.Collapsed;
+        }
         #endregion
     }
 }
