@@ -1,6 +1,6 @@
-﻿namespace SystemKontroliLotu
+﻿namespace FlightControlSystem
 {
-    enum AircraftType
+    public enum AircraftType
     {
         Plane,
         Helicopter,

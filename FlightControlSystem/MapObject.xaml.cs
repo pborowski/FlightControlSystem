@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SystemKontroliLotu
+namespace FlightControlSystem
 {
     /// <summary>
     /// Logika interakcji dla klasy MapObject.xaml
@@ -21,11 +21,14 @@ namespace SystemKontroliLotu
     public abstract partial class MapObject : UserControl
     {
         #region Properties
+
         public Point Coordinates { get; set; }
         public string MapObjectName { get; private set; }
+
         #endregion
 
         #region Constructors
+
         protected MapObject()
         {
             InitializeComponent();
@@ -33,17 +36,20 @@ namespace SystemKontroliLotu
 
         protected MapObject(string name, Point coordinates)
         {
-            MapObjectName = name;
-            Coordinates = coordinates;
+            InitializeComponent();
+            this.Name = name;
+            this.Coordinates = coordinates;
+            ImageMapObject.Width = 50;
+            ImageMapObject.Height = 50;
         }
         #endregion
 
         #region Methods
 
-        public virtual void RenderMapObject(Point p, Canvas c)
-        {
-            
-        }
+        public abstract void RenderMapObject(Canvas c);
+
         #endregion
+
+        public abstract void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e);
     }
 }

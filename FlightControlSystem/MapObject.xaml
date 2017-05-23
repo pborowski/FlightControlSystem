@@ -1,14 +1,14 @@
-﻿<UserControl x:Class="SystemKontroliLotu.MapObject"
+﻿<UserControl x:Class="FlightControlSystem.MapObject"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SystemKontroliLotu"
+             xmlns:local="clr-namespace:FlightControlSystem"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100">
-        <Canvas Name="CanvasMapObject" Width="100" Height="100" >
+             d:DesignHeight="100" d:DesignWidth="100" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+        <Grid Width="100" Height="100">
             <Image Name="ImageMapObject" Width="100" Height="100"></Image>
-        </Canvas>
+        </Grid>
 </UserControl>
 
 

@@ -13,18 +13,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SystemKontroliLotu
+namespace FlightControlSystem
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static SystemObject sys;
+        public static AirportSelectionDialog dlg;
+
         public MainWindow()
         {
             InitializeComponent();
-            MySystem.CreateSystem().generateRandomFlights(CanvasMap);
-
+            sys = SystemObject.CreateSystem(this.CanvasMap);
         }
     }
 }
