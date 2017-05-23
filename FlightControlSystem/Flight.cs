@@ -42,14 +42,13 @@ namespace FlightControlSystem
             DoubleAnimation animX = new DoubleAnimation(dest.Coordinates.X, TimeSpan.FromSeconds(20));
             DoubleAnimation animY = new DoubleAnimation(dest.Coordinates.Y, TimeSpan.FromSeconds(20));
             
-
             animY.Completed += (s, e) =>
             {
                 foreach (Flight f in MainWindow.sys.Flights)
                 {
-                    if (f.AircraftFlying.Name == this.AircraftFlying.Name)
+                    if (f.AircraftFlying.Name == AircraftFlying.Name)
                     {
-                        c.Children.Remove(this.AircraftFlying);
+                        c.Children.Remove(AircraftFlying);
                         MainWindow.sys.Flights.Remove(this);
                         break;
                     }

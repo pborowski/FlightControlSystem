@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="100" MouseLeftButtonDown="UserControl_MouseLeftButtonDown" >
         <Grid Name="GridMapObject" Width="100" Height="100">
-        <Label Name="NameLabel" Foreground="DarkRed" Margin="20,70,0,0" Visibility="Collapsed">fsdafdsaf</Label>
+        <Label Name="NameLabel" Foreground="DarkRed" Margin="20,70,0,0" Visibility="Collapsed">test</Label>
         <Image MouseEnter="MapObject_OnMouseEnter" MouseLeave="ImageMapObject_OnMouseLeave" Name="ImageMapObject" Width="100" Height="100"></Image>
         </Grid>
 </UserControl>

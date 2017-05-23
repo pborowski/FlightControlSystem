@@ -28,6 +28,7 @@ namespace FlightControlSystem
             InitializeComponent();
         }
 
+        #region MenuEvenHandlers
         private void MenuItem_Start_OnClick(object sender, RoutedEventArgs e)
         {
             sys = SystemObject.CreateSystem(this.CanvasMap);
@@ -67,11 +68,20 @@ namespace FlightControlSystem
                 if (element is Aircraft)
                 {
                     c.Remove(element);
+                    foreach (Flight f in sys.Flights)
+                    {
+                        if (Equals(f.AircraftFlying, element))
+                        {
+                            sys.Flights.Remove(f);
+                            break;
+                        }   
+                    }
                     DeleteAllAircrafts(c);
                     break;
                 }
             }
             return;
         }
+        #endregion
     }
 }

@@ -17,14 +17,20 @@ namespace FlightControlSystem
         public AircraftType Type { get; set; }
         public double Altitude { get; set; }
         public double Speed { get; set; }
+        public int IdNumber { get; private set; }
+        private string Origin { get; set; }
+        private string Destination { get; set;}
+        private string _name;
 
         #endregion
 
         #region Constructors
 
-        public Aircraft(string name, Point coordinates, AircraftType t)
+        public Aircraft(string name, Point coordinates, AircraftType t, int id)
             : base(name, coordinates)
         {
+            _name = name;
+            IdNumber = id;
             Type = t;
             BitmapImage bi = new BitmapImage();
             bi.BeginInit();
@@ -62,18 +68,32 @@ namespace FlightControlSystem
 
         public override void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            
             MessageBox.Show(Name);
         }
 
         public override void MapObject_OnMouseEnter(object sender, MouseEventArgs e)
         {
-           // if (MapObjectName != null) NameLabel.Content = MapObjectName;
-           // NameLabel.Visibility = Visibility.Visible;
+            if (Name != null)
+            {
+                NameLabel.Content = IdNumber;
+            }
+            NameLabel.Visibility = Visibility.Visible;
+            //ChangeDestinationDialog window = new ChangeDestinationDialog
+            //{
+            //    LbName = {Content = MapObjectName},
+            //    LbOrigin = {Content = Origin},
+            //    CbDestination = {Text = Destination},
+            //    LbSpeed = {Content = Speed},
+            //    LbAltitude = {Content = Altitude}
+            //};
+            //window.Show();
+
         }
 
         public override void ImageMapObject_OnMouseLeave(object sender, MouseEventArgs e)
         {
-           // NameLabel.Visibility = Visibility.Collapsed;
+            NameLabel.Visibility = Visibility.Collapsed;
         }
 
         #endregion

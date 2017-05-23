@@ -60,12 +60,19 @@
     <Compile Include="AirportSelectionDialog.xaml.cs">
       <DependentUpon>AirportSelectionDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChangeDestinationDialog.xaml.cs">
+      <DependentUpon>ChangeDestinationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Flight.cs" />
     <Compile Include="MapObject.xaml.cs">
       <DependentUpon>MapObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="SystemObject.cs" />
     <Page Include="AirportSelectionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChangeDestinationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

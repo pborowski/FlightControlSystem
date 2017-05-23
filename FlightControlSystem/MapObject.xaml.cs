@@ -37,8 +37,8 @@ namespace FlightControlSystem
         protected MapObject(string name, Point coordinates)
         {
             InitializeComponent();
-            this.Name = name;
-            this.Coordinates = coordinates;
+            Name = name;
+            Coordinates = coordinates;
             ImageMapObject.Width = 50;
             ImageMapObject.Height = 50;
         }
