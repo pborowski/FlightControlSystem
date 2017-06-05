@@ -101,7 +101,8 @@ namespace FlightControlSystem
         public void CreateFlight(Airport origin, Airport destination, AircraftType type)
         {
             int id = Flights.Count + 1;
-            Aircraft a = new Aircraft("Tupolew", origin.Coordinates, type,id);
+            string name = type.ToString() + id;
+            Aircraft a = new Aircraft(name, origin.Coordinates, type,id);
             Flight f = new Flight(a, origin, destination, C);
             Flights.Add(f);
 

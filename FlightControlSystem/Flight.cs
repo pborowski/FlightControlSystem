@@ -47,15 +47,15 @@ namespace FlightControlSystem
             AircraftFlying.RenderTransform = rt;*/
 
             FlightStory = new Storyboard();
-            FlightStory.Duration = TimeSpan.FromSeconds(20);
+            FlightStory.Duration = TimeSpan.FromSeconds(40);
 
 
-            DoubleAnimation animX = new DoubleAnimation(dest.Coordinates.X, TimeSpan.FromSeconds(20));
+            DoubleAnimation animX = new DoubleAnimation(dest.Coordinates.X, TimeSpan.FromSeconds(40));
             Storyboard.SetTarget(animX, AircraftFlying);
             Storyboard.SetTargetProperty(animX, new PropertyPath("(Canvas.Left)"));
             FlightStory.Children.Add(animX);
 
-            DoubleAnimation animY = new DoubleAnimation(dest.Coordinates.Y, TimeSpan.FromSeconds(20));
+            DoubleAnimation animY = new DoubleAnimation(dest.Coordinates.Y, TimeSpan.FromSeconds(40));
             Storyboard.SetTarget(animY, AircraftFlying);
             Storyboard.SetTargetProperty(animY, new PropertyPath("(Canvas.Top)"));
             FlightStory.Children.Add(animY);
@@ -98,6 +98,7 @@ namespace FlightControlSystem
                             {
                                 f.FlightStory.Stop();
                                 foreach (Flight ff in MainWindow.sys.Flights)
+
                                 {
                                     if (ff.AircraftFlying.IdNumber == f.AircraftFlying.IdNumber)
                                     {

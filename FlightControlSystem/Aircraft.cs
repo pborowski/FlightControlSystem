@@ -104,6 +104,7 @@ namespace FlightControlSystem
                 {
                     if (f.AircraftFlying.IdNumber == (sender as Aircraft).IdNumber)
                     {
+                        f.AircraftFlying.Destination = window.newDestination.Name;
                         DoubleAnimation animX = new DoubleAnimation(window.newDestination.Coordinates.X, TimeSpan.FromSeconds(20));
                         Storyboard.SetTarget(animX, f.AircraftFlying);
                         Storyboard.SetTargetProperty(animX, new PropertyPath("(Canvas.Left)"));
