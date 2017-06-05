@@ -19,9 +19,31 @@ namespace FlightControlSystem
     /// </summary>
     public partial class ChangeDestinationDialog : Window
     {
+        public Airport newDestination = null;
         public ChangeDestinationDialog()
         {
             InitializeComponent();
+        }
+
+        private void OKButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (CbDestination.SelectedItem != null)
+            {
+                foreach (Airport a in MainWindow.sys.Airports)
+                {
+                    if (a.Name == CbDestination.SelectedItem.ToString())
+                    {
+                        newDestination = a;
+                    }
+                }
+                DialogResult = true;
+                Close();
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }

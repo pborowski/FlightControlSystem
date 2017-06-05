@@ -11,7 +11,9 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="System">
                 <MenuItem Name="MenuItemStart" Header="_Start" Click="MenuItem_Start_OnClick"/>
-                <MenuItem Header="_Stop" Click="MenuItem_Stop_OnClick"/>
+                <MenuItem Name="ManuItemContinue" Header="_Continue" Click="MenuItem_Continue_OnClick" IsEnabled="False" />
+                <MenuItem Name="MenuItemPause" Header="_Pause" Click="MenuItem_Pause_OnClick" IsEnabled="False"/>
+                <MenuItem Name="MenuItemStop"  Header="_Stop" Click="MenuItem_Stop_OnClick" IsEnabled="False"/>
             </MenuItem>
             <MenuItem Name="MenuItemAddRandom" Header="Add Random Flight" IsEnabled="False">
                 <MenuItem Header="_Plane" Click="MenuItem_GeneratePlane_OnClick"/>

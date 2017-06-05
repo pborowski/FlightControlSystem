@@ -33,6 +33,8 @@ namespace FlightControlSystem
         public Flight(Aircraft a, Airport start, Airport dest, Canvas c)
         {
             AircraftFlying = a;
+            a.Destination = dest.Name;
+            a.Origin = start.Name;
             StartAirport = start;
             DestinationAirport = dest;
             this.c = c;
@@ -74,13 +76,15 @@ namespace FlightControlSystem
             FlightStory.Begin();
 
         }
+        #endregion
 
+        #region EventHandlers
         private void FlightStory_CurrentTimeInvalidated(object sender, EventArgs e)
         {
             Clock clock = (Clock)sender;
             var distAirportX = Math.Abs(Canvas.GetLeft(AircraftFlying) - Canvas.GetLeft(DestinationAirport));
             var distAirportY = Math.Abs(Canvas.GetTop(AircraftFlying) - Canvas.GetTop(DestinationAirport));
-            if(distAirportX > 10 && distAirportY > 10)
+            if (distAirportX > 10 && distAirportY > 10)
             {
                 if (clock.CurrentTime != null && clock.CurrentTime.Value.Seconds != 0)
                 {
@@ -95,17 +99,19 @@ namespace FlightControlSystem
                                 f.FlightStory.Stop();
                                 foreach (Flight ff in MainWindow.sys.Flights)
                                 {
-                                    if (ff.AircraftFlying.Name == f.AircraftFlying.Name)
+                                    if (ff.AircraftFlying.IdNumber == f.AircraftFlying.IdNumber)
                                     {
                                         c.Children.Remove(f.AircraftFlying);
                                         MainWindow.sys.Flights.Remove(f);
+                                        string collisionMessage = "Kolizja pojazdu: "+ f.AircraftFlying.IdNumber +" i "+ AircraftFlying.IdNumber;
+                                        MessageBox.Show(collisionMessage);
                                         break;
                                     }
                                 }
                                 FlightStory.Stop();
                                 foreach (Flight ff in MainWindow.sys.Flights)
                                 {
-                                    if (ff.AircraftFlying.Name == AircraftFlying.Name)
+                                    if (ff.AircraftFlying.IdNumber == AircraftFlying.IdNumber)
                                     {
                                         c.Children.Remove(AircraftFlying);
                                         MainWindow.sys.Flights.Remove(this);
@@ -117,9 +123,11 @@ namespace FlightControlSystem
                         }
                     }
                 }
-            }       
+            }
         }
-
         #endregion
+
+
+
     }
 }

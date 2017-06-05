@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 
 namespace FlightControlSystem
@@ -18,8 +19,8 @@ namespace FlightControlSystem
         public double Altitude { get; set; }
         public double Speed { get; set; }
         public int IdNumber { get; private set; }
-        private string Origin { get; set; }
-        private string Destination { get; set;}
+        public string Origin { get; set; }
+        public string Destination { get; set;}
         private string _name;
 
         #endregion
@@ -68,8 +69,58 @@ namespace FlightControlSystem
 
         public override void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            
-            MessageBox.Show(Name);
+
+            //MessageBox.Show(Name);
+            ChangeDestinationDialog window = new ChangeDestinationDialog
+            {
+                //LbName = { Content = MapObjectName },
+                //LbOrigin = { Content = Origin },
+                //CbDestination = { Text = Destination },
+                //LbSpeed = { Content = Speed },
+                //LbAltitude = { Content = Altitude }
+            };
+
+            foreach (Flight f in MainWindow.sys.Flights)
+            {
+                f.FlightStory.Pause();
+            }
+            foreach (Flight f in MainWindow.sys.Flights)
+            {
+                if (f.AircraftFlying.IdNumber == (sender as Aircraft).IdNumber)
+                {
+                    window.LbName.Content = f.AircraftFlying._name;
+                    window.LbOrigin.Content = f.AircraftFlying.Origin;
+                    window.LbAltitude.Content = f.AircraftFlying.Altitude;
+                    window.LbDestination.Content = f.AircraftFlying.Destination;
+                    foreach (Airport a in MainWindow.sys.Airports)
+                    {
+                        window.CbDestination.Items.Add(a.Name);
+                    }
+                }
+            }
+            if (window.ShowDialog() == true)
+            {
+                foreach (Flight f in MainWindow.sys.Flights)
+                {
+                    if (f.AircraftFlying.IdNumber == (sender as Aircraft).IdNumber)
+                    {
+                        DoubleAnimation animX = new DoubleAnimation(window.newDestination.Coordinates.X, TimeSpan.FromSeconds(20));
+                        Storyboard.SetTarget(animX, f.AircraftFlying);
+                        Storyboard.SetTargetProperty(animX, new PropertyPath("(Canvas.Left)"));
+                        f.FlightStory.Children.Add(animX);
+
+                        DoubleAnimation animY = new DoubleAnimation(window.newDestination.Coordinates.Y, TimeSpan.FromSeconds(20));
+                        Storyboard.SetTarget(animY, f.AircraftFlying);
+                        Storyboard.SetTargetProperty(animY, new PropertyPath("(Canvas.Top)"));
+                        f.FlightStory.Children.Add(animY);
+                        f.FlightStory.Begin(); 
+                    }
+                }
+            }
+            foreach (Flight f in MainWindow.sys.Flights)
+            {
+                f.FlightStory.Resume();
+            }
         }
 
         public override void MapObject_OnMouseEnter(object sender, MouseEventArgs e)
@@ -79,15 +130,7 @@ namespace FlightControlSystem
                 NameLabel.Content = IdNumber;
             }
             NameLabel.Visibility = Visibility.Visible;
-            //ChangeDestinationDialog window = new ChangeDestinationDialog
-            //{
-            //    LbName = {Content = MapObjectName},
-            //    LbOrigin = {Content = Origin},
-            //    CbDestination = {Text = Destination},
-            //    LbSpeed = {Content = Speed},
-            //    LbAltitude = {Content = Altitude}
-            //};
-            //window.Show();
+            
 
         }
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FlightControlSystem"
         mc:Ignorable="d"
-        Title="Details" Width="300" Height="300">
+        Title="Details" Width="350" Height="400">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="4*"></ColumnDefinition>
@@ -17,16 +17,21 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Grid.Column="0">Name:</Label>
         <Label Grid.Row="1" Grid.Column="0">Origin:</Label>
         <Label Grid.Row="2" Grid.Column="0">Destination:</Label>
-        <Label Grid.Row="3" Grid.Column="0">Speed:</Label>
-        <Label Grid.Row="4" Grid.Column="0">Altitude:</Label>
+        <Label Grid.Row="4" Grid.Column="0">Speed:</Label>
+        <Label Grid.Row="5" Grid.Column="0">Altitude:</Label>
         <Label Name="LbName" Grid.Row="0" Grid.Column="1"></Label>
         <Label Name="LbOrigin" Grid.Row="1" Grid.Column="1"></Label>
-        <ComboBox Name="CbDestination" Grid.Row="2" Grid.Column="1" Margin="10,0,10,20"></ComboBox>
-        <Label Name="LbSpeed" Grid.Row="3" Grid.Column="1"></Label>
-        <Label Name="LbAltitude" Grid.Row="4" Grid.Column="1"></Label>
+        <Label Name="LbDestination" Grid.Row="2" Grid.Column="1"></Label>
+        <Label Grid.Row="3" Grid.Column="0">Change Destination To:</Label>
+        <ComboBox Name="CbDestination" Grid.Row="3" Grid.Column="1" Margin="10,0,10,20"></ComboBox>
+        <Label Name="LbSpeed" Grid.Row="4" Grid.Column="1"></Label>
+        <Label Name="LbAltitude" Grid.Row="5" Grid.Column="1"></Label>
+        <Button Name="OKButton" Grid.Row="6" Grid.Column="1" Margin="10" Click="OKButton_Click">Ok</Button>
     </Grid>
 </Window>

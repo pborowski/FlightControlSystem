@@ -34,31 +34,66 @@ namespace FlightControlSystem
             sys = SystemObject.CreateSystem(this.CanvasMap);
             MenuItemAddRandom.IsEnabled = true;
             MenuItemStart.IsEnabled = false;
+            MenuItemStop.IsEnabled = true;
+            MenuItemPause.IsEnabled = true;
         }
 
         private void MenuItem_GeneratePlane_OnClick(object sender, RoutedEventArgs e)
         {
             sys.GenerateRandomFlight(AircraftType.Plane);
+            MenuItemStop.IsEnabled = true;
+            MenuItemPause.IsEnabled = true;
         }
 
         private void MenuItem_GenerateBaloon_OnClick(object sender, RoutedEventArgs e)
         {
             sys.GenerateRandomFlight(AircraftType.Balloon);
+            MenuItemStop.IsEnabled = true;
+            MenuItemPause.IsEnabled = true;
         }
 
         private void MenuItem_GenerateHelicopter_OnClick(object sender, RoutedEventArgs e)
         {
             sys.GenerateRandomFlight(AircraftType.Helicopter);
+            MenuItemStop.IsEnabled = true;
+            MenuItemPause.IsEnabled = true;
         }
 
         private void MenuItem_GenerateGlider_OnClick(object sender, RoutedEventArgs e)
         {
             sys.GenerateRandomFlight(AircraftType.Glider);
+            MenuItemStop.IsEnabled = true;
+            MenuItemPause.IsEnabled = true;
         }
 
         private void MenuItem_Stop_OnClick(object sender, RoutedEventArgs e)
         {
             DeleteAllAircrafts(CanvasMap.Children);
+            MenuItemPause.IsEnabled = false;
+            MenuItemStop.IsEnabled = false;
+            ManuItemContinue.IsEnabled = false;
+
+        }
+
+        private void MenuItem_Pause_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (Flight f in sys.Flights)
+            {
+                f.FlightStory.Pause();
+            }
+            //foreach (Flight f in sys.Flights)
+            //{
+            //    MessageBox.Show(f.AircraftFlying.Coordinates.ToString());
+            //}
+            ManuItemContinue.IsEnabled = true;
+        }
+
+        private void MenuItem_Continue_OnClick(object sender, RoutedEventArgs e)
+        {
+            foreach (Flight f in sys.Flights)
+            {
+                f.FlightStory.Resume();
+            }
         }
 
         private void DeleteAllAircrafts(UIElementCollection c)
