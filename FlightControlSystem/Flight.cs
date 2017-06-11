@@ -94,7 +94,8 @@ namespace FlightControlSystem
                         {
                             var distanceX = Math.Abs(Canvas.GetLeft(AircraftFlying) - Canvas.GetLeft(f.AircraftFlying));
                             var distanceY = Math.Abs(Canvas.GetTop(AircraftFlying) - Canvas.GetTop(f.AircraftFlying));
-                            if (distanceX < 6 && distanceY < 6)
+                            var distanceAlt = Math.Abs((AircraftFlying.Altitude - f.AircraftFlying.Altitude));
+                            if (distanceX < 6 && distanceY < 6 && distanceAlt <100)
                             {
                                 f.FlightStory.Stop();
                                 foreach (Flight ff in MainWindow.sys.Flights)

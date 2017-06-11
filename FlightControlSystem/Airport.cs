@@ -39,7 +39,9 @@ namespace FlightControlSystem
         {
             MainWindow.dlg = new AirportSelectionDialog();
             MainWindow.dlg.ShowDialog();
-            if(MainWindow.dlg.Selection != null)
+            Application.Current.Windows.OfType<MainWindow>().First().MenuItemStop.IsEnabled = true;
+            Application.Current.Windows.OfType<MainWindow>().First().MenuItemPause.IsEnabled = true;
+            if (MainWindow.dlg.Selection != null)
             {
                 MainWindow.sys.CreateFlight(this, MainWindow.dlg.Selection,AircraftType.Plane);
             }    
