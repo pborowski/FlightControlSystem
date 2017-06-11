@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -18,11 +14,10 @@ namespace FlightControlSystem
         public AircraftType Type { get; set; }
         public double Altitude { get; set; }
         public double Speed { get; set; }
-        public int IdNumber { get; private set; }
+        public int IdNumber { get; }
         public string Origin { get; set; }
         public string Destination { get; set;}
-        private string _name;
-        private static Random _rnd;
+        private readonly string _name;
 
         #endregion
 
@@ -31,7 +26,7 @@ namespace FlightControlSystem
         public Aircraft(string name, Point coordinates, AircraftType t, int id)
             : base(name, coordinates)
         {
-            _rnd = new Random();
+            var rnd = new Random();
             _name = name;
             IdNumber = id;
             Type = t;
@@ -41,23 +36,23 @@ namespace FlightControlSystem
             {
                 case AircraftType.Plane:
                     bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/plane.png", UriKind.Relative);
-                    Altitude =10000+ (_rnd.Next(3) * 1000) + _rnd.Next(999);
-                    Speed = 500+ (_rnd.Next(3) * 100) + _rnd.Next(99);
+                    Altitude =10000+ (rnd.Next(3) * 1000) + rnd.Next(999);
+                    Speed = 500+ (rnd.Next(3) * 100) + rnd.Next(99);
                     break;
                 case AircraftType.Balloon:
                     bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/baloon.png", UriKind.Relative);
-                    Altitude = 100 + _rnd.Next(99);
-                    Speed = 10 + (_rnd.Next(3) * 10);
+                    Altitude = 100 + rnd.Next(99);
+                    Speed = 10 + (rnd.Next(3) * 10);
                     break;
                 case AircraftType.Glider:
                     bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/glider.png", UriKind.Relative);
-                    Altitude = 100 + _rnd.Next(99);
-                    Speed = 50 + (_rnd.Next(5) * 10);
+                    Altitude = 100 + rnd.Next(99);
+                    Speed = 50 + (rnd.Next(5) * 10);
                     break;
                 case AircraftType.Helicopter:
                     bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/helicopter.png", UriKind.Relative);
-                    Altitude = 100 + (_rnd.Next(9)*1000)+ _rnd.Next(99);
-                    Speed = 50 + (_rnd.Next(10) * 10);
+                    Altitude = 100 + (rnd.Next(9)*1000)+ rnd.Next(99);
+                    Speed = 50 + (rnd.Next(10) * 10);
                     break;
             }
             
@@ -72,8 +67,8 @@ namespace FlightControlSystem
 
         public override void RenderMapObject(Canvas c)
         {
-            Canvas.SetLeft(this, this.Coordinates.X);
-            Canvas.SetTop(this, this.Coordinates.Y);
+            Canvas.SetLeft(this, Coordinates.X);
+            Canvas.SetTop(this, Coordinates.Y);
             c.Children.Add(this);
         }
 
@@ -81,29 +76,23 @@ namespace FlightControlSystem
         {
 
             //MessageBox.Show(Name);
-            ChangeDestinationDialog window = new ChangeDestinationDialog
-            {
-                //LbName = { Content = MapObjectName },
-                //LbOrigin = { Content = Origin },
-                //CbDestination = { Text = Destination },
-                //LbSpeed = { Content = Speed },
-                //LbAltitude = { Content = Altitude }
-            };
+            ChangeDestinationDialog window = new ChangeDestinationDialog();
 
-            foreach (Flight f in MainWindow.sys.Flights)
+            foreach (Flight f in MainWindow.Sys.Flights)
             {
                 f.FlightStory.Pause();
             }
-            foreach (Flight f in MainWindow.sys.Flights)
+            foreach (Flight f in MainWindow.Sys.Flights)
             {
-                if (f.AircraftFlying.IdNumber == (sender as Aircraft).IdNumber)
+                Aircraft aircraft = sender as Aircraft;
+                if (aircraft != null && f.AircraftFlying.IdNumber == aircraft.IdNumber)
                 {
                     window.LbName.Content = f.AircraftFlying._name;
                     window.LbOrigin.Content = f.AircraftFlying.Origin;
                     window.LbAltitude.Content = f.AircraftFlying.Altitude;
                     window.LbSpeed.Content = f.AircraftFlying.Speed;
                     window.LbDestination.Content = f.AircraftFlying.Destination;
-                    foreach (Airport a in MainWindow.sys.Airports)
+                    foreach (Airport a in MainWindow.Sys.Airports)
                     {
                         window.CbDestination.Items.Add(a.Name);
                     }
@@ -111,17 +100,18 @@ namespace FlightControlSystem
             }
             if (window.ShowDialog() == true)
             {
-                foreach (Flight f in MainWindow.sys.Flights)
+                foreach (Flight f in MainWindow.Sys.Flights)
                 {
-                    if (f.AircraftFlying.IdNumber == (sender as Aircraft).IdNumber)
+                    Aircraft aircraft = sender as Aircraft;
+                    if (aircraft != null && f.AircraftFlying.IdNumber == aircraft.IdNumber)
                     {
-                        f.AircraftFlying.Destination = window.newDestination.Name;
-                        DoubleAnimation animX = new DoubleAnimation(window.newDestination.Coordinates.X, TimeSpan.FromSeconds(20));
+                        f.AircraftFlying.Destination = window.NewDestination.Name;
+                        DoubleAnimation animX = new DoubleAnimation(window.NewDestination.Coordinates.X, TimeSpan.FromSeconds(20));
                         Storyboard.SetTarget(animX, f.AircraftFlying);
                         Storyboard.SetTargetProperty(animX, new PropertyPath("(Canvas.Left)"));
                         f.FlightStory.Children.Add(animX);
 
-                        DoubleAnimation animY = new DoubleAnimation(window.newDestination.Coordinates.Y, TimeSpan.FromSeconds(20));
+                        DoubleAnimation animY = new DoubleAnimation(window.NewDestination.Coordinates.Y, TimeSpan.FromSeconds(20));
                         Storyboard.SetTarget(animY, f.AircraftFlying);
                         Storyboard.SetTargetProperty(animY, new PropertyPath("(Canvas.Top)"));
                         f.FlightStory.Children.Add(animY);
@@ -129,7 +119,7 @@ namespace FlightControlSystem
                     }
                 }
             }
-            foreach (Flight f in MainWindow.sys.Flights)
+            foreach (Flight f in MainWindow.Sys.Flights)
             {
                 f.FlightStory.Resume();
             }

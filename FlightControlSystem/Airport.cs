@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace FlightControlSystem
@@ -30,20 +26,20 @@ namespace FlightControlSystem
 
         public override void RenderMapObject(Canvas c)
         {
-            Canvas.SetLeft(this, this.Coordinates.X);
-            Canvas.SetTop(this, this.Coordinates.Y);
+            Canvas.SetLeft(this, Coordinates.X);
+            Canvas.SetTop(this, Coordinates.Y);
             c.Children.Add(this);
         }
 
         public override void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow.dlg = new AirportSelectionDialog();
-            MainWindow.dlg.ShowDialog();
+            MainWindow.Dlg = new AirportSelectionDialog();
+            MainWindow.Dlg.ShowDialog();
             Application.Current.Windows.OfType<MainWindow>().First().MenuItemStop.IsEnabled = true;
             Application.Current.Windows.OfType<MainWindow>().First().MenuItemPause.IsEnabled = true;
-            if (MainWindow.dlg.Selection != null)
+            if (MainWindow.Dlg.Selection != null)
             {
-                MainWindow.sys.CreateFlight(this, MainWindow.dlg.Selection,AircraftType.Plane);
+                MainWindow.Sys.CreateFlight(this, MainWindow.Dlg.Selection,AircraftType.Plane);
             }    
         }
 

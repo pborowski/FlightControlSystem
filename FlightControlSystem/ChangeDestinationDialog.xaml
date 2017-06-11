@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FlightControlSystem"
         mc:Ignorable="d"
         Title="Details" Width="350" Height="400">
     <Grid>
@@ -32,6 +31,6 @@
         <ComboBox Name="CbDestination" Grid.Row="3" Grid.Column="1" Margin="10,0,10,20"></ComboBox>
         <Label Name="LbSpeed" Grid.Row="4" Grid.Column="1"></Label>
         <Label Name="LbAltitude" Grid.Row="5" Grid.Column="1"></Label>
-        <Button Name="OKButton" Grid.Row="6" Grid.Column="1" Margin="10" Click="OKButton_Click">Ok</Button>
+        <Button Name="OkButton" Grid.Row="6" Grid.Column="1" Margin="10" Click="OKButton_Click">Ok</Button>
     </Grid>
 </Window>

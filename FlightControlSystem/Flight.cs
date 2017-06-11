@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
 
 namespace FlightControlSystem
@@ -15,11 +9,11 @@ namespace FlightControlSystem
     {
         #region Properties
 
-        public Aircraft AircraftFlying { get; private set; }
+        public Aircraft AircraftFlying { get; }
         public Airport StartAirport { get; private set; }
         public Airport DestinationAirport { get; set; }
         public Storyboard FlightStory { get; set; }
-        public Canvas c { get; set; }
+        public Canvas C { get; set; }
 
         #endregion
 
@@ -37,7 +31,7 @@ namespace FlightControlSystem
             a.Origin = start.Name;
             StartAirport = start;
             DestinationAirport = dest;
-            this.c = c;
+            C = c;
             AircraftFlying.RenderMapObject(c);
 
             /*double rotationAngle = 0; //Math.Atan((dest.Coordinates.Y - start.Coordinates.Y) / (dest.Coordinates.X - start.Coordinates.X)) * 100 + 90;
@@ -46,8 +40,7 @@ namespace FlightControlSystem
             AircraftFlying.RenderTransformOrigin = new Point(.5, .5);
             AircraftFlying.RenderTransform = rt;*/
 
-            FlightStory = new Storyboard();
-            FlightStory.Duration = TimeSpan.FromSeconds(40);
+            FlightStory = new Storyboard {Duration = TimeSpan.FromSeconds(40)};
 
 
             DoubleAnimation animX = new DoubleAnimation(dest.Coordinates.X, TimeSpan.FromSeconds(40));
@@ -62,12 +55,12 @@ namespace FlightControlSystem
             FlightStory.CurrentTimeInvalidated += FlightStory_CurrentTimeInvalidated;
             animY.Completed += (s, e) =>
             {
-                foreach (Flight f in MainWindow.sys.Flights)
+                foreach (Flight f in MainWindow.Sys.Flights)
                 {
                     if (f.AircraftFlying.Name == AircraftFlying.Name)
                     {
                         c.Children.Remove(AircraftFlying);
-                        MainWindow.sys.Flights.Remove(this);
+                        MainWindow.Sys.Flights.Remove(this);
                         break;
                     }
                 }
@@ -88,35 +81,34 @@ namespace FlightControlSystem
             {
                 if (clock.CurrentTime != null && clock.CurrentTime.Value.Seconds != 0)
                 {
-                    foreach (Flight f in MainWindow.sys.Flights)
+                    foreach (Flight f in MainWindow.Sys.Flights)
                     {
                         if (!AircraftFlying.Equals(f.AircraftFlying))
                         {
                             var distanceX = Math.Abs(Canvas.GetLeft(AircraftFlying) - Canvas.GetLeft(f.AircraftFlying));
                             var distanceY = Math.Abs(Canvas.GetTop(AircraftFlying) - Canvas.GetTop(f.AircraftFlying));
-                            var distanceAlt = Math.Abs((AircraftFlying.Altitude - f.AircraftFlying.Altitude));
-                            if (distanceX < 6 && distanceY < 6 && distanceAlt <100)
+                            if (distanceX < 6 && distanceY < 6)
                             {
                                 f.FlightStory.Stop();
-                                foreach (Flight ff in MainWindow.sys.Flights)
+                                foreach (Flight ff in MainWindow.Sys.Flights)
 
                                 {
                                     if (ff.AircraftFlying.IdNumber == f.AircraftFlying.IdNumber)
                                     {
-                                        c.Children.Remove(f.AircraftFlying);
-                                        MainWindow.sys.Flights.Remove(f);
+                                        C.Children.Remove(f.AircraftFlying);
+                                        MainWindow.Sys.Flights.Remove(f);
                                         string collisionMessage = "Kolizja pojazdu: "+ f.AircraftFlying.IdNumber +" i "+ AircraftFlying.IdNumber;
                                         MessageBox.Show(collisionMessage);
                                         break;
                                     }
                                 }
                                 FlightStory.Stop();
-                                foreach (Flight ff in MainWindow.sys.Flights)
+                                foreach (Flight ff in MainWindow.Sys.Flights)
                                 {
                                     if (ff.AircraftFlying.IdNumber == AircraftFlying.IdNumber)
                                     {
-                                        c.Children.Remove(AircraftFlying);
-                                        MainWindow.sys.Flights.Remove(this);
+                                        C.Children.Remove(AircraftFlying);
+                                        MainWindow.Sys.Flights.Remove(this);
                                         break;
                                     }
                                 }
@@ -128,8 +120,5 @@ namespace FlightControlSystem
             }
         }
         #endregion
-
-
-
     }
 }

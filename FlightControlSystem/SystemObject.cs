@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media.Animation;
 
 namespace FlightControlSystem
 {
@@ -19,7 +14,7 @@ namespace FlightControlSystem
         public List<Flight> Flights { get; set; }
         public List<Airport> Airports { get; set; }
         public int Max;
-        public Canvas C;
+        public Canvas Canv;
 
         #endregion
 
@@ -27,11 +22,11 @@ namespace FlightControlSystem
 
         // private constructor prevents from creating instance
         // of this class outside
-        private SystemObject(Canvas c)
+        private SystemObject(Canvas canv)
         {
             Max = 16;
             _rnd = new Random();
-            C = c;
+            Canv = canv;
             Flights = new List<Flight>();
             Airports = new List<Airport>
             {
@@ -54,7 +49,7 @@ namespace FlightControlSystem
             };
             foreach (Airport a in Airports)
             {
-                a.RenderMapObject(c);
+                a.RenderMapObject(canv);
                 
             }
             foreach (Airport a in Airports )
@@ -92,12 +87,8 @@ namespace FlightControlSystem
         public static SystemObject CreateSystem(Canvas c)
         {
             // if there isn't any existing instance of this class, create it
-            if (_sys == null)
-            {
-                _sys = new SystemObject(c);
-            }
+            return _sys ?? (_sys = new SystemObject(c));
             // and return
-            return _sys;
         }
 
         #endregion
@@ -106,7 +97,6 @@ namespace FlightControlSystem
 
         private int NextAvailiableId()
         {
-            bool ifIsId = true;
             if (_sys == null)
             {
                 //MessageBox.Show("Sys == null więc - Return" + (Flights.Count + 1).ToString());
@@ -122,7 +112,7 @@ namespace FlightControlSystem
             
             string name = type.ToString() + id;
             Aircraft a = new Aircraft(name, origin.Coordinates, type,id);
-            Flight f = new Flight(a, origin, destination, C);
+            Flight f = new Flight(a, origin, destination, Canv);
             Flights.Add(f);
 
         }
@@ -131,14 +121,6 @@ namespace FlightControlSystem
         {
             CreateFlight(Airports[_rnd.Next(Airports.Count)], Airports[_rnd.Next(Airports.Count)], t);
         }
-
-        public void ChangeFlightDestination()
-        {
-            /*
-             * implement changing destination
-             */
-        }
-
         #endregion
     }
 }

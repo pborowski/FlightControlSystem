@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace FlightControlSystem
 {
@@ -20,8 +8,8 @@ namespace FlightControlSystem
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static SystemObject sys;
-        public static AirportSelectionDialog dlg;
+        public static SystemObject Sys;
+        public static AirportSelectionDialog Dlg;
 
         public MainWindow()
         {
@@ -31,7 +19,7 @@ namespace FlightControlSystem
         #region MenuEvenHandlers
         private void MenuItem_Start_OnClick(object sender, RoutedEventArgs e)
         {
-            sys = SystemObject.CreateSystem(CanvasMap);
+            Sys = SystemObject.CreateSystem(CanvasMap);
             MenuItemAddRandom.IsEnabled = true;
             MenuItemStart.IsEnabled = false;
             MenuItemStop.IsEnabled = true;
@@ -40,28 +28,28 @@ namespace FlightControlSystem
 
         private void MenuItem_GeneratePlane_OnClick(object sender, RoutedEventArgs e)
         {
-            sys.GenerateRandomFlight(AircraftType.Plane);
+            Sys.GenerateRandomFlight(AircraftType.Plane);
             MenuItemStop.IsEnabled = true;
             MenuItemPause.IsEnabled = true;
         }
 
         private void MenuItem_GenerateBaloon_OnClick(object sender, RoutedEventArgs e)
         {
-            sys.GenerateRandomFlight(AircraftType.Balloon);
+            Sys.GenerateRandomFlight(AircraftType.Balloon);
             MenuItemStop.IsEnabled = true;
             MenuItemPause.IsEnabled = true;
         }
 
         private void MenuItem_GenerateHelicopter_OnClick(object sender, RoutedEventArgs e)
         {
-            sys.GenerateRandomFlight(AircraftType.Helicopter);
+            Sys.GenerateRandomFlight(AircraftType.Helicopter);
             MenuItemStop.IsEnabled = true;
             MenuItemPause.IsEnabled = true;
         }
 
         private void MenuItem_GenerateGlider_OnClick(object sender, RoutedEventArgs e)
         {
-            sys.GenerateRandomFlight(AircraftType.Glider);
+            Sys.GenerateRandomFlight(AircraftType.Glider);
             MenuItemStop.IsEnabled = true;
             MenuItemPause.IsEnabled = true;
         }
@@ -69,7 +57,7 @@ namespace FlightControlSystem
         private void MenuItem_Stop_OnClick(object sender, RoutedEventArgs e)
         {
             DeleteAllAircrafts(CanvasMap.Children);
-            foreach (Flight f in sys.Flights)
+            foreach (Flight f in Sys.Flights)
             {
                 MessageBox.Show(f.AircraftFlying.IdNumber.ToString());
             }
@@ -81,7 +69,7 @@ namespace FlightControlSystem
 
         private void MenuItem_Pause_OnClick(object sender, RoutedEventArgs e)
         {
-            foreach (Flight f in sys.Flights)
+            foreach (Flight f in Sys.Flights)
             {
                 f.FlightStory.Pause();
             }
@@ -94,7 +82,7 @@ namespace FlightControlSystem
 
         private void MenuItem_Continue_OnClick(object sender, RoutedEventArgs e)
         {
-            foreach (Flight f in sys.Flights)
+            foreach (Flight f in Sys.Flights)
             {
                 f.FlightStory.Resume();
             }
@@ -107,11 +95,11 @@ namespace FlightControlSystem
                 if (element is Aircraft)
                 {
                     c.Remove(element);
-                    foreach (Flight f in sys.Flights)
+                    foreach (Flight f in Sys.Flights)
                     {
                         if (Equals(f.AircraftFlying, element))
                         {
-                            sys.Flights.Remove(f);
+                            Sys.Flights.Remove(f);
                             break;
                         }   
                     }
