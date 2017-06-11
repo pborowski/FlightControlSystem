@@ -68,13 +68,10 @@ namespace FlightControlSystem
 
         private void MenuItem_Stop_OnClick(object sender, RoutedEventArgs e)
         {
-            DeleteAllAircrafts(sys.C.Children);
-            foreach (UIElement element in sys.C.Children)
+            DeleteAllAircrafts(CanvasMap.Children);
+            foreach (Flight f in sys.Flights)
             {
-                if (element is Aircraft)
-                {
-                    MessageBox.Show((element as Aircraft).IdNumber.ToString());
-                }
+                MessageBox.Show(f.AircraftFlying.IdNumber.ToString());
             }
             MenuItemPause.IsEnabled = false;
             MenuItemStop.IsEnabled = false;

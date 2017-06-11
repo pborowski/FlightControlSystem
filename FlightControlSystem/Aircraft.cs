@@ -22,6 +22,7 @@ namespace FlightControlSystem
         public string Origin { get; set; }
         public string Destination { get; set;}
         private string _name;
+        private static Random _rnd;
 
         #endregion
 
@@ -30,6 +31,7 @@ namespace FlightControlSystem
         public Aircraft(string name, Point coordinates, AircraftType t, int id)
             : base(name, coordinates)
         {
+            _rnd = new Random();
             _name = name;
             IdNumber = id;
             Type = t;
@@ -39,15 +41,23 @@ namespace FlightControlSystem
             {
                 case AircraftType.Plane:
                     bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/plane.png", UriKind.Relative);
+                    Altitude =10000+ (_rnd.Next(3) * 1000) + _rnd.Next(999);
+                    Speed = 500+ (_rnd.Next(3) * 100) + _rnd.Next(99);
                     break;
                 case AircraftType.Balloon:
                     bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/baloon.png", UriKind.Relative);
+                    Altitude = 100 + _rnd.Next(99);
+                    Speed = 10 + (_rnd.Next(3) * 10);
                     break;
                 case AircraftType.Glider:
                     bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/glider.png", UriKind.Relative);
+                    Altitude = 100 + _rnd.Next(99);
+                    Speed = 50 + (_rnd.Next(5) * 10);
                     break;
                 case AircraftType.Helicopter:
                     bi.UriSource = new Uri(@"/FlightControlSystem;component/Images/helicopter.png", UriKind.Relative);
+                    Altitude = 100 + (_rnd.Next(9)*1000)+ _rnd.Next(99);
+                    Speed = 50 + (_rnd.Next(10) * 10);
                     break;
             }
             
@@ -91,6 +101,7 @@ namespace FlightControlSystem
                     window.LbName.Content = f.AircraftFlying._name;
                     window.LbOrigin.Content = f.AircraftFlying.Origin;
                     window.LbAltitude.Content = f.AircraftFlying.Altitude;
+                    window.LbSpeed.Content = f.AircraftFlying.Speed;
                     window.LbDestination.Content = f.AircraftFlying.Destination;
                     foreach (Airport a in MainWindow.sys.Airports)
                     {
