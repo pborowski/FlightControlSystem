@@ -31,7 +31,7 @@ namespace FlightControlSystem
         #region MenuEvenHandlers
         private void MenuItem_Start_OnClick(object sender, RoutedEventArgs e)
         {
-            sys = SystemObject.CreateSystem(this.CanvasMap);
+            sys = SystemObject.CreateSystem(CanvasMap);
             MenuItemAddRandom.IsEnabled = true;
             MenuItemStart.IsEnabled = false;
             MenuItemStop.IsEnabled = true;
@@ -68,7 +68,14 @@ namespace FlightControlSystem
 
         private void MenuItem_Stop_OnClick(object sender, RoutedEventArgs e)
         {
-            DeleteAllAircrafts(CanvasMap.Children);
+            DeleteAllAircrafts(sys.C.Children);
+            foreach (UIElement element in sys.C.Children)
+            {
+                if (element is Aircraft)
+                {
+                    MessageBox.Show((element as Aircraft).IdNumber.ToString());
+                }
+            }
             MenuItemPause.IsEnabled = false;
             MenuItemStop.IsEnabled = false;
             ManuItemContinue.IsEnabled = false;
@@ -115,7 +122,6 @@ namespace FlightControlSystem
                     break;
                 }
             }
-            return;
         }
         #endregion
     }

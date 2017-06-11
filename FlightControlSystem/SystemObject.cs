@@ -15,9 +15,10 @@ namespace FlightControlSystem
         #region Properties
 
         private static SystemObject _sys; // singleton object is stored here
-        private static Random rnd;
+        private static Random _rnd;
         public List<Flight> Flights { get; set; }
         public List<Airport> Airports { get; set; }
+        public int Max;
         public Canvas C;
 
         #endregion
@@ -28,8 +29,9 @@ namespace FlightControlSystem
         // of this class outside
         private SystemObject(Canvas c)
         {
-            rnd = new Random();
-            this.C = c;
+            Max = 16;
+            _rnd = new Random();
+            C = c;
             Flights = new List<Flight>();
             Airports = new List<Airport>
             {
@@ -53,9 +55,13 @@ namespace FlightControlSystem
             foreach (Airport a in Airports)
             {
                 a.RenderMapObject(c);
+                
+            }
+            foreach (Airport a in Airports )
+            {
                 for (int i = 0; i < 1; i++) //jeden random z każdego lotniska
                 {
-                    int r = rnd.Next(Airports.Count);
+                    int r = _rnd.Next(Airports.Count);
                     AircraftType t;
                     switch (r % 4)
                     {
@@ -98,9 +104,22 @@ namespace FlightControlSystem
 
         #region Methods
 
+        private int NextAvailiableId()
+        {
+            bool ifIsId = true;
+            if (_sys == null)
+            {
+                //MessageBox.Show("Sys == null więc - Return" + (Flights.Count + 1).ToString());
+                return Flights.Count + 1;
+            }
+            
+            return ++Max;
+        }
+
         public void CreateFlight(Airport origin, Airport destination, AircraftType type)
         {
-            int id = Flights.Count + 1;
+            int id = NextAvailiableId();
+            
             string name = type.ToString() + id;
             Aircraft a = new Aircraft(name, origin.Coordinates, type,id);
             Flight f = new Flight(a, origin, destination, C);
@@ -110,7 +129,7 @@ namespace FlightControlSystem
 
         public void GenerateRandomFlight(AircraftType t)
         {
-            CreateFlight(Airports[rnd.Next(Airports.Count)], Airports[rnd.Next(Airports.Count)], t);
+            CreateFlight(Airports[_rnd.Next(Airports.Count)], Airports[_rnd.Next(Airports.Count)], t);
         }
 
         public void ChangeFlightDestination()
