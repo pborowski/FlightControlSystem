@@ -47,6 +47,5 @@ namespace FlightControlSystem
         public abstract void ImageMapObject_OnMouseLeave(object sender, MouseEventArgs e);
         #endregion
 
-
     }
 }

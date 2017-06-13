@@ -52,7 +52,7 @@ namespace FlightControlSystem
                 a.RenderMapObject(canv);
                 
             }
-            foreach (Airport a in Airports )
+            foreach (Airport a in Airports)
             {
                 for (int i = 0; i < 1; i++) //jeden random z każdego lotniska
                 {
@@ -99,7 +99,7 @@ namespace FlightControlSystem
         {
             if (_sys == null)
             {
-                //MessageBox.Show("Sys == null więc - Return" + (Flights.Count + 1).ToString());
+                // MessageBox.Show("Sys == null więc - Return" + (Flights.Count + 1).ToString());
                 return Flights.Count + 1;
             }
             

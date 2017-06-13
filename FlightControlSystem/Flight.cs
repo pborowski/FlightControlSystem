@@ -34,11 +34,7 @@ namespace FlightControlSystem
             C = c;
             AircraftFlying.RenderMapObject(c);
 
-            /*double rotationAngle = 0; //Math.Atan((dest.Coordinates.Y - start.Coordinates.Y) / (dest.Coordinates.X - start.Coordinates.X)) * 100 + 90;
-
-            RotateTransform rt = new RotateTransform() { Angle = rotationAngle };
-            AircraftFlying.RenderTransformOrigin = new Point(.5, .5);
-            AircraftFlying.RenderTransform = rt;*/
+            
 
             FlightStory = new Storyboard {Duration = TimeSpan.FromSeconds(40)};
 
