@@ -20,6 +20,11 @@
                 <MenuItem Header="_Helicopter" Click="MenuItem_GenerateHelicopter_OnClick"/>
                 <MenuItem Header="_Glider" Click="MenuItem_GenerateGlider_OnClick"/>
             </MenuItem>
+            <MenuItem Name="MenuItemHelp" Header="Help">
+                <MenuItem Header="_General Information" Click="MenuItem_GeneralInformation_OnClick"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="_About"  Click="MenuItem_About_Onclick"></MenuItem>
+            </MenuItem>
         </Menu>
         <Grid>
             <Canvas Name="CanvasMap">

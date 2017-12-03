@@ -1,0 +1,44 @@
+﻿<Window x:Class="FlightControlSystem.GeneralInformationDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FlightControlSystem"
+        mc:Ignorable="d"
+        Title="GeneralInformation" Height="360" Width="350" Icon="Images/icon.ico" Background="AliceBlue">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="3*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Grid.Row="0" Height="50" Source="Images/plane.png" ></Image>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextDecorations="Underline" FontSize="30" Margin="10,-20,-10,20">
+            
+            <LineBreak/>    
+            Quick Guide
+            </TextBlock>
+            
+            
+            <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <TextBlock.Margin>15,10</TextBlock.Margin>
+            
+            <LineBreak/>    
+            1. To <Bold>start</Bold> symulation press <Bold>System -> Start</Bold><LineBreak/> (it will add all airports and generate one random <LineBreak/>aircraft from each airport)
+            <LineBreak/>
+            2. To <Bold>pause</Bold> symulation press <Bold>System -> Pause</Bold> <LineBreak/>(it will freeze all flying aircrafts and simulation)
+            <LineBreak/>
+            3. To <Bold>stop</Bold> symulation press <Bold>System -> Stop</Bold> <LineBreak/>(it will remove all flying aircrafts)
+            <LineBreak/>
+            4. To <Bold>generate random flight</Bold>  press <Bold>Add Random Flight</Bold> <LineBreak/>and choose aircraft type (start and destination will<LineBreak/> be random)
+            <LineBreak/>
+            5. To <Bold>generate plane flight </Bold> from specyfic airport <Bold>click <LineBreak/>Left MouseButton</Bold> and choose destination airport
+            <LineBreak/>
+            </TextBlock>
+        </Grid>
+    </Grid>
+</Window>

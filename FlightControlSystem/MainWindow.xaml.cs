@@ -109,5 +109,17 @@ namespace FlightControlSystem
             }
         }
         #endregion
+
+        private void MenuItem_GeneralInformation_OnClick(object sender, RoutedEventArgs e)
+        {
+            GeneralInformationDialog window = new GeneralInformationDialog();
+            window.Show();
+        }
+
+        private void MenuItem_About_Onclick(object sender, RoutedEventArgs e)
+        {
+            AboutDialog window = new AboutDialog();
+            window.Show();
+        }
     }
 }

@@ -54,6 +54,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Aircraft.cs" />
     <Compile Include="AircraftType.cs" />
     <Compile Include="Airport.cs" />
@@ -64,15 +67,26 @@
       <DependentUpon>ChangeDestinationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Flight.cs" />
+    <Compile Include="GeneralInformationDialog.xaml.cs">
+      <DependentUpon>GeneralInformationDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MapObject.xaml.cs">
       <DependentUpon>MapObject.xaml</DependentUpon>
     </Compile>
     <Compile Include="SystemObject.cs" />
+    <Page Include="AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AirportSelectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ChangeDestinationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GeneralInformationDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
