@@ -70,12 +70,13 @@
 
             </TabItem>
             <TabItem Header="Statistics">
-                <DataGrid Name="DataGrid" AutoGenerateColumns="False" ColumnWidth="*">
+                <DataGrid Name="DataGrid" AutoGenerateColumns="False" ColumnWidth="*" Margin="0,0,0,0">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="StartAirport" Binding="{Binding StartAirport.Name, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="StartAirport"  Width="Auto" Binding="{Binding StartAirport.Name, Mode=TwoWay}"/>
                         <DataGridTextColumn Header="Destination" Binding="{Binding DestinationAirport.Name, Mode=TwoWay}"/>
                         <DataGridTextColumn Header="AircraftId" Binding="{Binding AircraftFlying.IdNumber, Mode=OneWay}"/>
                         <DataGridTextColumn Header="AircraftType" Binding="{Binding AircraftFlying.Type, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="UTC FlightTime" Width="Auto" Binding="{Binding FlightDateTime, Mode=OneWay, StringFormat='{}{0:dd/MM/yyyy h:mm tt}'}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

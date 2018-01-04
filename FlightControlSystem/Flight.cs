@@ -12,13 +12,14 @@ namespace FlightControlSystem
     {
         #region Properties
 
+
         private Airport _destinationAirport;
         private Storyboard _flightStory;
+        private DateTime _dateTime;
         private Canvas _c;
 
         public Aircraft AircraftFlying { get; }
         public Airport StartAirport { get; private set; }
-
         public Airport DestinationAirport
         {
             get
@@ -34,7 +35,6 @@ namespace FlightControlSystem
                 }
             }
         }
-
         public Storyboard FlightStory
         {
             get { return _flightStory; }
@@ -44,7 +44,6 @@ namespace FlightControlSystem
                 OnFlightPropertyChanged(nameof(_flightStory));
             }
         }
-
         public Canvas C
         {
             get { return _c; }
@@ -52,6 +51,18 @@ namespace FlightControlSystem
             {
                 _c = value;
                 OnFlightPropertyChanged(nameof(_c));
+            }
+        }
+
+        public DateTime FlightDateTime
+        {
+            get
+            {
+                return _dateTime;
+            }
+            set
+            {
+                _dateTime = DateTime.Now.Date;
             }
         }
 
@@ -64,7 +75,7 @@ namespace FlightControlSystem
             
         }
 
-        public Flight(Aircraft a, Airport start, Airport dest, Canvas c)
+        public Flight(Aircraft a, Airport start, Airport dest, Canvas c, DateTime d)
         {
             AircraftFlying = a;
             a.Destination = dest.Name;
@@ -72,6 +83,7 @@ namespace FlightControlSystem
             StartAirport = start;
             DestinationAirport = dest;
             C = c;
+            FlightDateTime = d;
             AircraftFlying.RenderMapObject(c);
 
             

@@ -115,7 +115,7 @@ namespace FlightControlSystem
             
             string name = type.ToString() + id;
             Aircraft a = new Aircraft(name, origin.Coordinates, type,id);
-            Flight f = new Flight(a, origin, destination, Canv);
+            Flight f = new Flight(a, origin, destination, Canv, DateTime.UtcNow);
             Flights.Add(f);
             AllFlightsList.Add(f);
 
