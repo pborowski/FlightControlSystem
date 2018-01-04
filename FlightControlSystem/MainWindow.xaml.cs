@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace FlightControlSystem
 {
@@ -10,16 +13,25 @@ namespace FlightControlSystem
     {
         public static SystemObject Sys;
         public static AirportSelectionDialog Dlg;
+        public static ObservableCollection<Flight> FlightsObservable;
 
         public MainWindow()
         {
+            //FlightsObservable = new ObservableCollection<Flight>();
             InitializeComponent();
+           
         }
 
         #region MenuEvenHandlers
         private void MenuItem_Start_OnClick(object sender, RoutedEventArgs e)
         {
             Sys = SystemObject.CreateSystem(CanvasMap);
+            //DataGrid.SetBinding(DataGrid.ItemsSourceProperty, new Binding("Flights")
+            //{
+            //    Source = Sys.AllFlightsList,
+            //    Mode = BindingMode.TwoWay
+            //});
+            DataGrid.ItemsSource = Sys.AllFlightsList;
             MenuItemAddRandom.IsEnabled = true;
             MenuItemStart.IsEnabled = false;
             MenuItemStop.IsEnabled = true;

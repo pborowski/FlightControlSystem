@@ -73,6 +73,7 @@
     <Compile Include="MapObject.xaml.cs">
       <DependentUpon>MapObject.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SystemObject.cs" />
     <Page Include="AboutDialog.xaml">
       <SubType>Designer</SubType>

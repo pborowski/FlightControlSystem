@@ -1,19 +1,59 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using FlightControlSystem.Annotations;
 
 namespace FlightControlSystem
 {
-    public class Flight
+    public class Flight : INotifyPropertyChanged
     {
         #region Properties
 
+        private Airport _destinationAirport;
+        private Storyboard _flightStory;
+        private Canvas _c;
+
         public Aircraft AircraftFlying { get; }
         public Airport StartAirport { get; private set; }
-        public Airport DestinationAirport { get; set; }
-        public Storyboard FlightStory { get; set; }
-        public Canvas C { get; set; }
+
+        public Airport DestinationAirport
+        {
+            get
+            {
+                return _destinationAirport;
+            }
+            set
+            {
+                if (!Equals(value, _destinationAirport))
+                {
+                    _destinationAirport = value;
+                    OnFlightPropertyChanged(nameof(DestinationAirport));
+                }
+            }
+        }
+
+        public Storyboard FlightStory
+        {
+            get { return _flightStory; }
+            set
+            {
+                _flightStory = value;
+                OnFlightPropertyChanged(nameof(_flightStory));
+            }
+        }
+
+        public Canvas C
+        {
+            get { return _c; }
+            set
+            {
+                _c = value;
+                OnFlightPropertyChanged(nameof(_c));
+            }
+        }
 
         #endregion
 
@@ -68,6 +108,17 @@ namespace FlightControlSystem
         #endregion
 
         #region EventHandlers
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnFlightPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         private void FlightStory_CurrentTimeInvalidated(object sender, EventArgs e)
         {
             Clock clock = (Clock)sender;
@@ -116,5 +167,7 @@ namespace FlightControlSystem
             }
         }
         #endregion
+
+        
     }
 }

@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="System Kontroli Lotu" Icon="Images/icon.ico" Width="600" Height="617" 
+        Title="System Kontroli Lotu" Icon="Images/icon.ico" Width="610" Height="625" 
          ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
 
     <DockPanel>
@@ -66,7 +66,19 @@
                     </Canvas>
                 </Grid>
             </TabItem>
-            <TabItem Header="Statistics" />
+            <TabItem Header="Planning">
+
+            </TabItem>
+            <TabItem Header="Statistics">
+                <DataGrid Name="DataGrid" AutoGenerateColumns="False" ColumnWidth="*">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="StartAirport" Binding="{Binding StartAirport.Name, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="Destination" Binding="{Binding DestinationAirport.Name, Mode=TwoWay}"/>
+                        <DataGridTextColumn Header="AircraftId" Binding="{Binding AircraftFlying.IdNumber, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="AircraftType" Binding="{Binding AircraftFlying.Type, Mode=TwoWay}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
         </TabControl>
     </DockPanel>
 </Window>

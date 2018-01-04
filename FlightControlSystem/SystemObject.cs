@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -12,6 +13,7 @@ namespace FlightControlSystem
         private static SystemObject _sys; // singleton object is stored here
         private static Random _rnd;
         public List<Flight> Flights { get; set; }
+        public ObservableCollection<Flight> AllFlightsList { get; set; }
         public List<Airport> Airports { get; set; }
         public int Max;
         public Canvas Canv;
@@ -28,6 +30,7 @@ namespace FlightControlSystem
             _rnd = new Random();
             Canv = canv;
             Flights = new List<Flight>();
+            AllFlightsList = new ObservableCollection<Flight>();
             Airports = new List<Airport>
             {
                 new Airport("Białystok", new Point(450, 120)),
@@ -114,6 +117,7 @@ namespace FlightControlSystem
             Aircraft a = new Aircraft(name, origin.Coordinates, type,id);
             Flight f = new Flight(a, origin, destination, Canv);
             Flights.Add(f);
+            AllFlightsList.Add(f);
 
         }
 
