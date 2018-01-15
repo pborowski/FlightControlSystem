@@ -67,6 +67,7 @@
       <DependentUpon>ChangeDestinationDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Flight.cs" />
+    <Compile Include="FlightWaiting.cs" />
     <Compile Include="GeneralInformationDialog.xaml.cs">
       <DependentUpon>GeneralInformationDialog.xaml</DependentUpon>
     </Compile>
@@ -75,6 +76,7 @@
     </Compile>
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="SystemObject.cs" />
+    <Compile Include="WaitingFlight.cs" />
     <Page Include="AboutDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

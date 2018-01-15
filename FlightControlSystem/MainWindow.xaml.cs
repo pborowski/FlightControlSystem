@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Timers;
 
 namespace FlightControlSystem
 {
@@ -14,12 +16,20 @@ namespace FlightControlSystem
         public static SystemObject Sys;
         public static AirportSelectionDialog Dlg;
         public static ObservableCollection<Flight> FlightsObservable;
+        System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
+
+
 
         public MainWindow()
         {
             //FlightsObservable = new ObservableCollection<Flight>();
             InitializeComponent();
-           
+            AircraftTypeCoomboBox.ItemsSource = Enum.GetValues(typeof(AircraftType));
+            Timer.Tick += new EventHandler(Timer_Click);
+
+            Timer.Interval = new TimeSpan(0, 0, 1);
+
+            Timer.Start();
         }
 
         #region MenuEvenHandlers
@@ -31,6 +41,7 @@ namespace FlightControlSystem
             //    Source = Sys.AllFlightsList,
             //    Mode = BindingMode.TwoWay
             //});
+            DataGridWaiting.ItemsSource = Sys.FlightsWaitingList;
             DataGrid.ItemsSource = Sys.AllFlightsList;
             MenuItemAddRandom.IsEnabled = true;
             MenuItemStart.IsEnabled = false;
@@ -133,5 +144,49 @@ namespace FlightControlSystem
             AboutDialog window = new AboutDialog();
             window.Show();
         }
+
+        private void Timer_Click(object sender, EventArgs e)
+
+        {
+            DateTime d;
+
+            d = DateTime.Now;
+
+            ClockLabel.Content = d.Hour + " : " + d.Minute + " : " + d.Second;
+        }
+
+        private void PlanButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (Sys == null)
+            {
+               Sys =  SystemObject.CreateSystem(CanvasMap);
+                DataGridWaiting.ItemsSource = Sys.FlightsWaitingList;
+                DataGrid.ItemsSource = Sys.AllFlightsList;
+                MenuItemAddRandom.IsEnabled = true;
+                MenuItemStart.IsEnabled = false;
+                MenuItemStop.IsEnabled = true;
+                MenuItemPause.IsEnabled = true;
+            }
+            int seconds = 0;
+            Int32.TryParse(SecondsTextBox.Text, out seconds);
+            if (seconds == 0)
+            {
+                MessageBox.Show("Podaj poprawne sekundy (dodatnia liczba całkowita)");
+            }
+            else
+            {
+                foreach (string name in Enum.GetNames(typeof(AircraftType)))
+                {
+                    if (name == AircraftTypeCoomboBox.SelectedValue.ToString())
+                    {
+                        Sys.GenerateRandomWaitingFlight((AircraftType)Enum.Parse(typeof(AircraftType), name), DateTime.Now.AddSeconds(seconds).ToString("h:mm:ss"));
+                    }
+                }
+            }
+            
+
+           
+        }
+
     }
 }

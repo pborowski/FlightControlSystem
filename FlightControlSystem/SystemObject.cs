@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace FlightControlSystem
 {
@@ -17,6 +20,12 @@ namespace FlightControlSystem
         public List<Airport> Airports { get; set; }
         public int Max;
         public Canvas Canv;
+        const double IntervalSecond = 1000; // milliseconds to one second
+        public ObservableCollection<FlightWaiting> FlightsWaitingList;
+
+        Timer checkForTime = new Timer(IntervalSecond);
+       
+
 
         #endregion
 
@@ -26,9 +35,12 @@ namespace FlightControlSystem
         // of this class outside
         private SystemObject(Canvas canv)
         {
+            checkForTime.Elapsed += new ElapsedEventHandler(checkForTime_Elapsed);
+            checkForTime.Enabled = true;
             Max = 16;
             _rnd = new Random();
             Canv = canv;
+            FlightsWaitingList = new ObservableCollection<FlightWaiting>();
             Flights = new List<Flight>();
             AllFlightsList = new ObservableCollection<Flight>();
             Airports = new List<Airport>
@@ -60,6 +72,10 @@ namespace FlightControlSystem
                 for (int i = 0; i < 1; i++) //jeden random z każdego lotniska
                 {
                     int r = _rnd.Next(Airports.Count);
+                    while (a.Name == Airports[r].Name)
+                    {
+                        r = _rnd.Next(Airports.Count);
+                    }
                     AircraftType t;
                     switch (r % 4)
                     {
@@ -84,6 +100,35 @@ namespace FlightControlSystem
             }
         }
 
+
+        private void checkForTime_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke((Action)delegate {
+
+                foreach (FlightWaiting f in FlightsWaitingList)
+                {
+                    if (DateTime.Now.ToString("h:mm:ss") == f.DateTime)
+                    {
+                        MessageBox.Show("Startuje zaplanowany " + f.Flight.AircraftFlying.Type + " start: "+f.Flight.StartAirport.Name+" cel: "+f.Flight.DestinationAirport.Name);
+                        //AllFlightsList.Add(f.Flight);
+                        try
+                        {
+                            CreateFlight(f.Flight.StartAirport, f.Flight.DestinationAirport, f.Flight.AircraftFlying.Type);
+                        }
+                        catch (Exception exception)
+                        {
+                            MessageBox.Show(exception.Message);
+                        }
+                        FlightsWaitingList.Remove(f);
+                        //FlightsWaitingList.CollectionChanged +=  delegate(object o, NotifyCollectionChangedEventArgs args) {   };
+
+                    }
+                }
+
+            });
+           
+        }
+
         // pseudo constructor - publicly visuble static method 
         // used to create instace of this class unless any instance
         // was previously created
@@ -97,6 +142,8 @@ namespace FlightControlSystem
         #endregion
 
         #region Methods
+
+        
 
         private int NextAvailiableId()
         {
@@ -121,9 +168,33 @@ namespace FlightControlSystem
 
         }
 
+        public void GenerateRandomWaitingFlight(AircraftType t, string d)
+        {
+            FlightWaiting f;
+            f = CreateWaitingFlight(Airports[_rnd.Next(Airports.Count)], Airports[_rnd.Next(Airports.Count)], t, d);
+            FlightsWaitingList.Add(f);
+        }
+
+        public FlightWaiting CreateWaitingFlight(Airport origin, Airport destination, AircraftType type, string time)
+        {
+            int id = NextAvailiableId();
+
+            string name = type.ToString() + id;
+            Aircraft a = new Aircraft(name, origin.Coordinates, type, id);
+            WaitingFlight f = new WaitingFlight(a, origin, destination, Canv, DateTime.UtcNow);
+            return new FlightWaiting(){DateTime = time, Flight = f};
+
+        }
+
         public void GenerateRandomFlight(AircraftType t)
         {
-            CreateFlight(Airports[_rnd.Next(Airports.Count)], Airports[_rnd.Next(Airports.Count)], t);
+            Airport a = Airports[_rnd.Next(Airports.Count)];
+            Airport b = Airports[_rnd.Next(Airports.Count)];
+            while (a.Name == b.Name)
+            {
+                b = Airports[_rnd.Next(Airports.Count)];
+            }
+            CreateFlight(a, b, t);
         }
         #endregion
     }

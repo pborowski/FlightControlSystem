@@ -67,6 +67,34 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Planning">
+                <Grid Margin="40,40,40,40">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition ></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                        <ColumnDefinition ></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="14*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="2" Name="ClockLabel" Grid.Row="0" Height="25" Width="80" FontStyle="Italic" Margin="81,0,10,2"></Label>
+                    <Label Grid.Column="0" Grid.Row="1" Width="90" Margin="46,14,35,2">Typ pojazdu</Label>
+                    <Label Grid.Column="1" Grid.Row="1" Height="25" Width="90" Margin="46,14,36,10">Za ile sekund</Label>
+                    <ComboBox Name="AircraftTypeCoomboBox" Height="25" Grid.Row="2" Grid.Column="0" Margin="46,10,49,0" VerticalAlignment="Top"/>
+                    <TextBox Name="SecondsTextBox" Height="25" Width="90" Grid.Row="2" Grid.Column="1" Margin="46,10,46,0" VerticalAlignment="Top" ></TextBox>
+                    <Button  Grid.Column="2" Name="PlanButton" Height="25" Width="80" Grid.Row="2" Click="PlanButton_OnClick" Margin="30,10,30,0" VerticalAlignment="Top">Zaplanuj</Button>
+                    <DataGrid Name="DataGridWaiting" AutoGenerateColumns="False" ColumnWidth="*" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,0">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="StartAirport"  Width="Auto" Binding="{Binding Flight.StartAirport.Name, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Destination" Binding="{Binding Flight.DestinationAirport.Name, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="AircraftId" Binding="{Binding Flight.AircraftFlying.IdNumber, Mode=OneWay}"/>
+                            <DataGridTextColumn Header="AircraftType" Binding="{Binding Flight.AircraftFlying.Type, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Starting Time" Width="Auto" Binding="{Binding DateTime, Mode=OneWay, StringFormat='{}{0: h:mm:ss tt}'}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
 
             </TabItem>
             <TabItem Header="Statistics">
@@ -76,7 +104,7 @@
                         <DataGridTextColumn Header="Destination" Binding="{Binding DestinationAirport.Name, Mode=TwoWay}"/>
                         <DataGridTextColumn Header="AircraftId" Binding="{Binding AircraftFlying.IdNumber, Mode=OneWay}"/>
                         <DataGridTextColumn Header="AircraftType" Binding="{Binding AircraftFlying.Type, Mode=TwoWay}"/>
-                        <DataGridTextColumn Header="UTC FlightTime" Width="Auto" Binding="{Binding FlightDateTime, Mode=OneWay, StringFormat='{}{0:dd/MM/yyyy h:mm tt}'}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="UTC FlightTime" Width="Auto" Binding="{Binding FlightDateTime, Mode=OneWay, StringFormat='{}{0: h:mm:ss tt}'}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
